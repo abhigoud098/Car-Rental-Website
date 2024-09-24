@@ -9,15 +9,15 @@ import {
 
 const FooterLinks = [
   {
-    title: "Home",
+    title: "Car service",
     link: "/#",
   },
   {
-    title: "About",
+    title: "Company",
     link: "/#about",
   },
   {
-    title: "Contact",
+    title: "Details",
     link: "/#contact",
   },
   {
@@ -25,6 +25,45 @@ const FooterLinks = [
     link: "/#blog",
   },
 ];
+
+const Location = [
+  {
+    title: "Bhopal",
+    link: "/#",
+  },
+  {
+    title: "Indore",
+    link: "/#about",
+  },
+  {
+    title: "Sagar",
+    link: "/#contact",
+  },
+  {
+    title: "Budhni",
+    link: "/#blog",
+  },
+];
+
+const Link = [
+  {
+    title: "Services related",
+    link: "/#",
+  },
+  {
+    title: "Diffrent place",
+    link: "/#about",
+  },
+  {
+    title: "Driver issu",
+    link: "/#contact",
+  },
+  {
+    title: "Car issu",
+    link: "/#blog",
+  },
+];
+
 const Footer = () => {
   return (
     <div className="bg-gray-100 dark:bg-dark mt-14 rounded-t-3xl">
@@ -33,20 +72,19 @@ const Footer = () => {
           {/* company Details */}
           <div className=" py-8 px-4 ">
             <h1 className="sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3 flex items-center gap-3 font-serif">
-              Car Rental
+              MAX-Cars
             </h1>
             <p className="text-sm">
-              Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Possimus, voluptate.{" "}
+            "© 2024 Your Company Name. All rights reserved."
             </p>
             <br />
             <div className="flex items-center gap-3">
               <FaLocationArrow />
-              <p>Noida, Uttar Pradesh</p>
+              <p>Bhopal, Madhay Pradesh</p>
             </div>
             <div className="flex items-center gap-3 mt-3">
               <FaMobileAlt />
-              <p>+91 123456789</p>
+              <p>+91 1234567896</p>
             </div>
             {/* Social Handle */}
             <div className="flex items-center gap-3 mt-6">
@@ -84,7 +122,7 @@ const Footer = () => {
                   Links
                 </h1>
                 <ul className="flex flex-col gap-3">
-                  {FooterLinks.map((link) => (
+                  {Link.map((link) => (
                     <li className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-500 dark:text-gray-200">
                       <span>&#11162;</span>
                       <span>{link.title}</span>
@@ -100,7 +138,7 @@ const Footer = () => {
                 </h1>
                 {/* <ul className="list-disc list-inside"> */}
                 <ul className="flex flex-col gap-3">
-                  {FooterLinks.map((link) => (
+                  {Location.map((link) => (
                     <li className="cursor-pointer hover:translate-x-1 duration-300 hover:!text-primary space-x-1 text-gray-500 dark:text-gray-200">
                       <span>&#11162;</span>
                       <span>{link.title}</span>

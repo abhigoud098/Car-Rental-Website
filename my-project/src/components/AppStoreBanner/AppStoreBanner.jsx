@@ -27,8 +27,8 @@ const AppStoreBanner = () => {
               Get Started with our app
             </h1>
             <p data-aos="fade-up" className="text-center sm:px-20">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
-              magnam harum accusantium odit?
+              Get started with our application and enjoy hassle-free car rentals
+              right at your fingertips!
             </p>
             <div
               data-aos="fade-up"

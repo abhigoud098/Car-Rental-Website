@@ -1,38 +1,63 @@
-import React from "react";
-import { FaCameraRetro } from "react-icons/fa";
-import { GiNotebook } from "react-icons/gi";
-import { SlNote } from "react-icons/sl";
+import React, { useState } from "react";
 
 const skillsData = [
   {
     name: "Best Price",
     icon: (
-      <FaCameraRetro className="text-5xl text-primary group-hover:text-black duration-300" />
+      <img
+        src="https://png.pngtree.com/png-clipart/20230913/original/pngtree-best-price-icon-vector-png-image_11060241.png"
+        className="h-20 w-20"
+      ></img>
     ),
     link: "#",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    shortDescription:
+      "Get the best deals on car rentals with our competitive pricing!",
+    fullDescription:
+      "Get the best deals on car rentals with our competitive pricing! We offer affordable rates without compromising on quality, so you can enjoy your trip without breaking the bank. With no hidden fees and flexible rental packages, you're guaranteed the best value for your money.",
     aosDelay: "0",
   },
   {
     name: "Fast and Safe",
     icon: (
-      <GiNotebook className="text-5xl text-primary group-hover:text-black duration-300" />
+      <img
+        src="https://png.pngtree.com/png-clipart/20220620/original/pngtree-express-delivery-car-png-image_8137269.png"
+        className="h-20 w-20"
+      ></img>
     ),
     link: "#",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    shortDescription:
+      "Experience fast and safe car rentals with us! Our streamlined booking process ensures you can hit the road quickly.",
+    fullDescription:
+      "Experience fast and safe car rentals with us! Our streamlined booking process ensures you can hit the road quickly, while our well-maintained vehicles provide a secure and smooth journey. Drive with peace of mind knowing that your safety is our top priority.",
     aosDelay: "500",
   },
   {
     name: "Experience Drivers",
     icon: (
-      <SlNote className="text-5xl text-primary group-hover:text-black duration-500" />
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/8583/8583437.png"
+        className="h-20 w-20"
+      ></img>
     ),
     link: "#",
-    description: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    shortDescription:
+      "Travel with confidence, knowing you're in the hands of experienced drivers.",
+    fullDescription:
+      "Travel with confidence, knowing you're in the hands of experienced drivers. Our professional drivers are highly trained, knowledgeable, and committed to ensuring a comfortable and safe journey. Whether it's a short trip or a long drive, you're guaranteed a smooth and stress-free ride.",
     aosDelay: "1000",
   },
 ];
+
 const Services = () => {
+  const [expanded, setExpanded] = useState({});
+
+  const toggleLearnMore = (name) => {
+    setExpanded((prevState) => ({
+      ...prevState,
+      [name]: !prevState[name],
+    }));
+  };
+
   return (
     <>
       <span id="about"></span>
@@ -56,13 +81,17 @@ const Services = () => {
               >
                 <div className="grid place-items-center">{skill.icon}</div>
                 <h1 className="text-2xl font-bold">{skill.name}</h1>
-                <p>{skill.description}</p>
-                <a
-                  href={skill.link}
+                <p>
+                  {expanded[skill.name]
+                    ? skill.fullDescription
+                    : skill.shortDescription}
+                </p>
+                <button
+                  onClick={() => toggleLearnMore(skill.name)}
                   className="inline-block text-lg font-semibold py-3 text-primary group-hover:text-black duration-300"
                 >
-                  Learn more
-                </a>
+                  {expanded[skill.name] ? "Show less" : "Learn more"}
+                </button>
               </div>
             ))}
           </div>

@@ -22,16 +22,22 @@ const About = () => {
                 About us
               </h1>
               <p data-aos="fade-up" className="leading-8 tracking-wide">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Aspernatur, magnam! Tenetur odio quo et maxime?
+                At [MAX-Cars], we are committed to providing a seamless and
+                affordable car rental experience. Whether you're looking for a
+                compact city car, a luxurious sedan, or a spacious SUV, our
+                diverse fleet has something for every journey. We pride
+                ourselves on delivering top-notch service with flexible rental
+                options, easy online booking, and 24/7 customer support.
               </p>
               <p data-aos="fade-up">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
-                tempora.
+                Our goal is to make your travel convenient and enjoyable,
+                ensuring you have the perfect vehicle for your needs. Drive with
+                confidence, knowing that all our cars are regularly maintained
+                for safety and comfort.
               </p>
-              <button data-aos="fade-up" className="button-outline">
+              {/* <button data-aos="fade-up" className="button-outline">
                 Get Started
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

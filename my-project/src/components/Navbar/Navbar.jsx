@@ -7,47 +7,57 @@ export const Navlinks = [
   {
     id: 1,
     name: "HOME",
-    link: "/#",
+    link: "home",
   },
   {
     id: 2,
     name: "CARS",
-    link: "/#cars",
+    link: "cars",
   },
   {
-    id: 1,
+    id: 3,
     name: "ABOUT",
-    link: "/#about",
+    link: "about",
   },
   {
-    id: 1,
+    id: 4,
     name: "BOOKING",
-    link: "/#booking",
+    link: "booking",
   },
+
 ];
+
 const Navbar = ({ theme, setTheme }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  const scrollToSection = (link) => {
+    const section = document.getElementById(link);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div
-      className="relative z-10 shadow-md w-full dark:bg-black dark:text-white duration-300
-    "
+      className="relative z-10 shadow-md w-full dark:bg-black dark:text-white duration-300"
     >
       <div className="container py-2 md:py-0">
         <div className="flex justify-between items-center">
           <div>
-            <span className="text-3xl font-bold font-serif">Car Rental</span>
+            <span className="text-3xl font-bold font-serif">MAX-Cars</span>
           </div>
           <nav className="hidden md:block">
             <ul className="flex items-center gap-8">
               {Navlinks.map(({ id, name, link }) => (
                 <li key={id} className="py-4">
                   <a
-                    href={link}
-                    className=" text-lg font-medium  hover:text-primary py-2 hover:border-b-2 hover:border-primary transition-colors duration-500  "
+                    href={`#${link}`} // Add the '#' to create the link
+                    onClick={() => scrollToSection(link)} // Handle the click
+                    className="text-lg font-medium hover:text-primary py-2 hover:border-b-2 hover:border-primary transition-colors duration-500"
                   >
                     {name}
                   </a>
@@ -69,7 +79,7 @@ const Navbar = ({ theme, setTheme }) => {
           </nav>
           {/* Mobile view  */}
           <div className="flex items-center gap-4 md:hidden ">
-            {/* dark  mode */}
+            {/* dark mode */}
             {theme === "dark" ? (
               <BiSolidSun
                 onClick={() => setTheme("light")}
@@ -85,7 +95,7 @@ const Navbar = ({ theme, setTheme }) => {
             {showMenu ? (
               <HiMenuAlt1
                 onClick={toggleMenu}
-                className=" cursor-pointer transition-all"
+                className="cursor-pointer transition-all"
                 size={30}
               />
             ) : (
