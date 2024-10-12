@@ -22,7 +22,7 @@ const About = () => {
                 About us
               </h1>
               <p data-aos="fade-up" className="leading-8 tracking-wide">
-                At [MAX-Cars], we are committed to providing a seamless and
+                At MAX-Cars, we are committed to providing a seamless and
                 affordable car rental experience. Whether you're looking for a
                 compact city car, a luxurious sedan, or a spacious SUV, our
                 diverse fleet has something for every journey. We pride

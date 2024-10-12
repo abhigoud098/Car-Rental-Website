@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import whiteCar from "../../assets/car1.png";
 import car2 from "../../assets/car2.png";
 import car3 from "../../assets/car5.png";
+import car6 from "../../assets/car6.png";
+import car7 from "../../assets/car1.png";
+import car8 from "../../assets/car2.png";
 
 const carList = [
   {
@@ -20,6 +23,24 @@ const carList = [
     name: "BOLERO BLUE UX",
     price: 100,
     image: car3,
+    details: "Elegant Bolero UX with a white finish, ready for family trip.",
+  },
+  {
+    name: "BOLERO BLUE UX",
+    price: 100,
+    image: car6,
+    details: "Elegant Bolero UX with a white finish, ready for family trip.",
+  },
+  {
+    name: "BOLERO BLUE UX",
+    price: 100,
+    image: car7,
+    details: "Elegant Bolero UX with a white finish, ready for family trip.",
+  },
+  {
+    name: "BOLERO BLUE UX",
+    price: 100,
+    image: car8,
     details: "Elegant Bolero UX with a white finish, ready for family trip.",
   },
 ];
@@ -63,7 +84,7 @@ const CarList = () => {
     e.preventDefault();
     setBookedDetails({ userName, contactNumber, days });
     setNotification({
-      message: `You have successfully booked ${selectedCar.name} for ${days} day(s). Total: $${selectedCar.price * days}.`,
+      message: `You have successfully booked ${selectedCar.name} for ${days} day(s). Total: ${selectedCar.price * days}.`,
       type: "success",
     });
     closeDetails();
@@ -93,7 +114,7 @@ const CarList = () => {
           Cars Prices!
         </h1>
         <p data-aos="fade-up" data-aos-delay="400" className="text-sm pb-10">
-          "Affordable cars are available for everyone, allowing you to book quickly and head to your destination with ease."
+          Affordable cars are available for everyone, allowing you to book quickly and head to your destination with ease.
         </p>
 
         <div>

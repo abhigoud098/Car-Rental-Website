@@ -2,29 +2,29 @@ import React, { useState } from "react";
 import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
+import { Link } from "react-router-dom";
 
 export const Navlinks = [
   {
     id: 1,
     name: "HOME",
-    link: "home",
+    link: "/",
   },
   {
     id: 2,
-    name: "CARS",
-    link: "cars",
+    name: "ABOUT",
+    link: "/about",
   },
   {
     id: 3,
-    name: "ABOUT",
-    link: "about",
+    name: "BOOKING-CAR",
+    link: "/booking-car",
   },
   {
     id: 4,
-    name: "BOOKING",
-    link: "booking",
+    name: "CONTECT",
+    link: "/contect",
   },
-
 ];
 
 const Navbar = ({ theme, setTheme }) => {
@@ -34,17 +34,8 @@ const Navbar = ({ theme, setTheme }) => {
     setShowMenu(!showMenu);
   };
 
-  const scrollToSection = (link) => {
-    const section = document.getElementById(link);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
-    <div
-      className="relative z-10 shadow-md w-full dark:bg-black dark:text-white duration-300"
-    >
+    <div className="relative z-10 shadow-md w-full dark:bg-black dark:text-white duration-300">
       <div className="container py-2 md:py-0">
         <div className="flex justify-between items-center">
           <div>
@@ -54,41 +45,41 @@ const Navbar = ({ theme, setTheme }) => {
             <ul className="flex items-center gap-8">
               {Navlinks.map(({ id, name, link }) => (
                 <li key={id} className="py-4">
-                  <a
-                    href={`#${link}`} // Add the '#' to create the link
-                    onClick={() => scrollToSection(link)} // Handle the click
+                  <Link
+                    to={link} // Use Link instead of <a> for client-side routing
                     className="text-lg font-medium hover:text-primary py-2 hover:border-b-2 hover:border-primary transition-colors duration-500"
                   >
                     {name}
-                  </a>
+                  </Link>
                 </li>
               ))}
-              {/* DarkMode feature implement */}
+              {/* DarkMode feature */}
               {theme === "dark" ? (
                 <BiSolidSun
                   onClick={() => setTheme("light")}
-                  className="text-2xl"
+                  className="text-2xl cursor-pointer"
                 />
               ) : (
                 <BiSolidMoon
                   onClick={() => setTheme("dark")}
-                  className="text-2xl"
+                  className="text-2xl cursor-pointer"
                 />
               )}
             </ul>
           </nav>
-          {/* Mobile view  */}
-          <div className="flex items-center gap-4 md:hidden ">
-            {/* dark mode */}
+
+          {/* Mobile view */}
+          <div className="flex items-center gap-4 md:hidden">
+            {/* Dark mode toggle */}
             {theme === "dark" ? (
               <BiSolidSun
                 onClick={() => setTheme("light")}
-                className="text-2xl"
+                className="text-2xl cursor-pointer"
               />
             ) : (
               <BiSolidMoon
                 onClick={() => setTheme("dark")}
-                className="text-2xl"
+                className="text-2xl cursor-pointer"
               />
             )}
             {/* Mobile Hamburger icon */}
@@ -108,6 +99,7 @@ const Navbar = ({ theme, setTheme }) => {
           </div>
         </div>
       </div>
+      {/* Responsive Menu for Mobile */}
       <ResponsiveMenu showMenu={showMenu} />
     </div>
   );
