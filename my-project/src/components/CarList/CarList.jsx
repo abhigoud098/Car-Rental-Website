@@ -50,10 +50,11 @@ const CarList = () => {
   const [userName, setUserName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [days, setDays] = useState(1);
+  const [orderId, setOrderId] = useState("");
   const [isBooking, setIsBooking] = useState(false);
   const [isReturning, setIsReturning] = useState(false);
   const [notification, setNotification] = useState({ message: "", type: "" });
-  const [bookedDetails, setBookedDetails] = useState(null);
+  const [bookings, setBookings] = useState([]);
 
   const showDetails = (car) => {
     setSelectedCar(car);
@@ -67,7 +68,7 @@ const CarList = () => {
     setUserName("");
     setContactNumber("");
     setDays(1);
-    setBookedDetails(null);
+    setOrderId(""); // Clear order ID on close
   };
 
   const handleBookNow = () => {
@@ -82,9 +83,23 @@ const CarList = () => {
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
-    setBookedDetails({ userName, contactNumber, days });
+
+    // Generate a unique Order ID
+    const newOrderId = Math.random().toString(36).substr(2, 9);
+
+    const newBooking = {
+      orderId: newOrderId,
+      userName,
+      contactNumber,
+      car: selectedCar,
+      days,
+      totalPrice: selectedCar.price * days,
+    };
+
+    setBookings((prevBookings) => [...prevBookings, newBooking]);
+
     setNotification({
-      message: `You have successfully booked ${selectedCar.name} for ${days} day(s). Total: ${selectedCar.price * days}.`,
+      message: `You have successfully booked ${selectedCar.name} for ${days} day(s). Order ID: ${newOrderId}. Total: ${selectedCar.price * days}.`,
       type: "success",
     });
     closeDetails();
@@ -92,16 +107,21 @@ const CarList = () => {
 
   const handleReturnSubmit = (e) => {
     e.preventDefault();
-    if (userName === bookedDetails?.userName && contactNumber === bookedDetails?.contactNumber) {
+
+    const foundBooking = bookings.find(
+      (booking) => booking.orderId === orderId && booking.userName === userName && booking.contactNumber === contactNumber
+    );
+
+    if (foundBooking) {
       setNotification({
-        message: `You have successfully returned ${selectedCar.name}.`,
+        message: `You have successfully returned ${foundBooking.car.name}. Order ID: ${foundBooking.orderId}.`,
         type: "success",
       });
       closeDetails();
-      setBookedDetails(null); // Clear booking details after return
+      setBookings((prevBookings) => prevBookings.filter(booking => booking.orderId !== foundBooking.orderId)); // Remove the booking after return
     } else {
       setNotification({
-        message: "The name and contact number do not match our records. Please check and try again.",
+        message: "No matching booking found. Please check your details and try again.",
         type: "error",
       });
     }
@@ -222,6 +242,14 @@ const CarList = () => {
                     type="text"
                     value={contactNumber}
                     onChange={(e) => setContactNumber(e.target.value)}
+                    className="w-full border dark:border-gray-600 p-2 mb-4 bg-white dark:bg-gray-700 dark:text-white"
+                    required
+                  />
+                  <label className="block mb-2">Order ID:</label>
+                  <input
+                    type="text"
+                    value={orderId}
+                    onChange={(e) => setOrderId(e.target.value)}
                     className="w-full border dark:border-gray-600 p-2 mb-4 bg-white dark:bg-gray-700 dark:text-white"
                     required
                   />
