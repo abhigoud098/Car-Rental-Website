@@ -6,7 +6,7 @@ import './index.css';
 
 // Use your Clerk Frontend API key from environment variables
 const clerkFrontendApi = import.meta.env.VITE_CLERK_FRONTEND_API;
-console.log("Clerk Frontend API:", clerkFrontendApi);
+
 
 
 

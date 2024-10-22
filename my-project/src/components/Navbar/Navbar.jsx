@@ -7,10 +7,10 @@ import { Link } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 export const Navlinks = [
-  { id: 1, name: "HOME", link: "/" },
-  { id: 2, name: "ABOUT", link: "/about" },
-  { id: 3, name: "BOOKING-CAR", link: "/booking-car" },
-  { id: 4, name: "CONTACT", link: "/contact" }, // Fixed spelling of "contact"
+  { id: 1, name: "Home", link: "/" },
+  // { id: 2, name: "ABOUT", link: "/about" },
+  { id: 3, name: "Booking-cars", link: "/booking-car" },
+  { id: 4, name: "Contact", link: "/contact" }, // Fixed spelling of "contact"
 ];
 
 const Navbar = ({ theme, setTheme }) => {

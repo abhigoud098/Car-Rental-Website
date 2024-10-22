@@ -19,7 +19,7 @@ const About = () => {
                 data-aos="fade-up"
                 className="text-3xl sm:text-4xl font-bold font-serif"
               >
-                About us
+               Dashboard
               </h1>
               <p data-aos="fade-up" className="leading-8 tracking-wide">
                 At MAX-Cars, we are committed to providing a seamless and
