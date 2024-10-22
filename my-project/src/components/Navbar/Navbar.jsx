@@ -10,7 +10,7 @@ export const Navlinks = [
   { id: 1, name: "HOME", link: "/" },
   { id: 2, name: "ABOUT", link: "/about" },
   { id: 3, name: "BOOKING-CAR", link: "/booking-car" },
-  { id: 4, name: "CONTECT", link: "/contect" },
+  { id: 4, name: "CONTACT", link: "/contact" }, // Fixed spelling of "contact"
 ];
 
 const Navbar = ({ theme, setTheme }) => {
@@ -50,7 +50,6 @@ const Navbar = ({ theme, setTheme }) => {
     console.log(`Logging in with ${provider}`);
   };
 
-  // Updated password validation function
   const isPasswordValid = (password) => {
     const passwordRegex =
       /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
@@ -60,7 +59,6 @@ const Navbar = ({ theme, setTheme }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if the password length is valid
     if (password.length < 8) {
       setErrorMessage(
         "Password must be at least 8 characters include letters, numbers, and special characters."
@@ -68,13 +66,11 @@ const Navbar = ({ theme, setTheme }) => {
       return;
     }
 
-    // Check if the password is valid
     if (!isPasswordValid(password)) {
       setErrorMessage("Password is not valid.");
       return;
     }
 
-    // Display success message based on the action
     if (isLogin) {
       setSuccessMessage("Login successful!");
     } else {
@@ -104,6 +100,15 @@ const Navbar = ({ theme, setTheme }) => {
                     </Link>
                   </li>
                 ))}
+                {/* Add the Dashboard link here */}
+                <li>
+                  <Link
+                    to="/dashboard"
+                    className="text-lg font-medium hover:text-primary py-2 hover:border-b-2 hover:border-primary transition-colors duration-500"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
                 {theme === "dark" ? (
                   <BiSolidSun
                     onClick={() => setTheme("light")}

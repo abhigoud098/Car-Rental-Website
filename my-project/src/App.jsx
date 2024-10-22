@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-// Component imports
-import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar"; // Import your Navbar component
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
 import Services from "./components/Services/Services";
@@ -13,12 +11,19 @@ import AppStoreBanner from "./components/AppStoreBanner/AppStoreBanner";
 import Contact from "./components/Contact/Contact";
 import Testimonial from "./components/Testimonial/Testimonial";
 import Footer from "./components/Footer/Footer";
+import Dashboard from "./components/Dashboard/Dashboard";
+import { SignIn, SignUp } from "@clerk/clerk-react";
+import ResponsiveMenu from "./components/Navbar/ResponsiveMenu";
+
+const clerkFrontendApi = "https://united-lioness-22.clerk.accounts.dev";
+console.log(clerkFrontendApi);
 
 const App = () => {
   // Dark mode state
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
+
   const element = document.documentElement;
 
   useEffect(() => {
@@ -44,18 +49,27 @@ const App = () => {
 
   return (
     <div className="bg-white dark:bg-black dark:text-white text-black overflow-x-hidden">
-      <BrowserRouter>
-        {/* Navbar should be outside of Routes so it shows on all pages */}
+      <Router>
+        {/* Add Navbar component here */}
         <Navbar theme={theme} setTheme={setTheme} />
 
-        {/* Define routes for different components */}
         <Routes>
           <Route path="/" element={<Hero theme={theme} />} />
           <Route path="/about" element={<About />} />
-          <Route path="/booking-car" element={<CarList/>} />
-          <Route path="/contect" element={<Contact/>} />
+          <Route path="/booking-car" element={<CarList />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/sign-in"
+            element={<SignIn routing="path" signUpUrl="/sign-up" />}
+          />
+          <Route
+            path="/sign-up"
+            element={<SignUp routing="path" signInUrl="/sign-in" />}
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
 
+        {/* These components might need to be conditionally rendered or adjusted based on your routing logic */}
         <About />
         <Services />
         <CarList />
@@ -63,7 +77,7 @@ const App = () => {
         <AppStoreBanner />
         <Contact />
         <Footer />
-      </BrowserRouter>
+      </Router>
     </div>
   );
 };
