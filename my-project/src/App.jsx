@@ -12,11 +12,8 @@ import Contact from "./components/Contact/Contact";
 import Testimonial from "./components/Testimonial/Testimonial";
 import Footer from "./components/Footer/Footer";
 import Dashboard from "./components/Dashboard/Dashboard";
-import { SignIn, SignUp } from "@clerk/clerk-react";
 import ResponsiveMenu from "./components/Navbar/ResponsiveMenu";
-
-const clerkFrontendApi = "https://united-lioness-22.clerk.accounts.dev";
-console.log(clerkFrontendApi);
+import {useAuth0} from '@auth0/auth0-react';
 
 const App = () => {
   // Dark mode state
@@ -58,14 +55,6 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/booking-car" element={<CarList />} />
           <Route path="/contact" element={<Contact />} />
-          <Route
-            path="/sign-in"
-            element={<SignIn routing="path" signUpUrl="/sign-up" />}
-          />
-          <Route
-            path="/sign-up"
-            element={<SignUp routing="path" signInUrl="/sign-in" />}
-          />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
 

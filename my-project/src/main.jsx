@@ -1,26 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { ClerkProvider, RedirectToSignIn, SignedIn, SignedOut } from '@clerk/clerk-react';
-import App from './App';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
+import { Auth0Provider } from "@auth0/auth0-react";
 
-// Use your Clerk Frontend API key from environment variables
-const clerkFrontendApi = import.meta.env.VITE_CLERK_FRONTEND_API;
-
-
-
-
-if (!clerkFrontendApi) {
-  throw new Error("VITE_CLERK_FRONTEND_API is not defined");
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
-    <SignedIn>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <Auth0Provider
+      domain="dev-eau1mamimp76zpla.us.auth0.com"
+      clientId="oErOWJTFExfs5AlY5e5OsqE8pQsT4dAV"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
       <App />
-    </SignedIn>
-    <SignedOut>
-      <RedirectToSignIn />
-    </SignedOut>
-  </ClerkProvider>
+    </Auth0Provider>
+  </React.StrictMode>
 );
