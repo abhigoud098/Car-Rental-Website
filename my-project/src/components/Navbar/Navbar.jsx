@@ -7,8 +7,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export const Navlinks = [
   { id: 1, name: "Home", link: "/" },
-  { id: 3, name: "Booking-cars", link: "/booking-car" },
-  { id: 4, name: "Contact", link: "/contact" },
+  { id: 2, name: "Booking-cars", link: "/booking-car" },
+  { id: 3, name: "Services", link: "/Services" },
+  { id: 3, name: "Feedback", link: "/Testimonial" },
 ];
 
 const Navbar = ({ theme, setTheme }) => {

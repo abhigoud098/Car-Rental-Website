@@ -54,8 +54,9 @@ const App = () => {
           <Route path="/" element={<Hero theme={theme} />} />
           <Route path="/about" element={<About />} />
           <Route path="/booking-car" element={<CarList />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/testimonial" element={<Testimonial />} />
+
         </Routes>
 
         {/* These components might need to be conditionally rendered or adjusted based on your routing logic */}
