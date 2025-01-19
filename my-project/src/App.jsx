@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -11,9 +11,9 @@ import AppStoreBanner from "./components/AppStoreBanner/AppStoreBanner";
 import Contact from "./components/Contact/Contact";
 import Testimonial from "./components/Testimonial/Testimonial";
 import Footer from "./components/Footer/Footer";
-import Dashboard from "./components/Dashboard/Dashboard";
-import ResponsiveMenu from "./components/Navbar/ResponsiveMenu";
-import {useAuth0} from '@auth0/auth0-react';
+// import Dashboard from "./components/Dashboard/Dashboard";
+// import ResponsiveMenu from "./components/Navbar/ResponsiveMenu";
+// import {useAuth0} from '@auth0/auth0-react';
 
 const App = () => {
   // Dark mode state

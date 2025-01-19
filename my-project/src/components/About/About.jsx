@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import CarPng from "../../assets/car1.png";
 
 const About = () => {
@@ -23,7 +23,7 @@ const About = () => {
               </h1>
               <p data-aos="fade-up" className="leading-8 tracking-wide">
                 At MAX-Cars, we are committed to providing a seamless and
-                affordable car rental experience. Whether you're looking for a
+                affordable car rental experience. Whether your looking for a
                 compact city car, a luxurious sedan, or a spacious SUV, our
                 diverse fleet has something for every journey. We pride
                 ourselves on delivering top-notch service with flexible rental

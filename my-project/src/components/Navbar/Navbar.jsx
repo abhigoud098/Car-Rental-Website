@@ -9,7 +9,7 @@ export const Navlinks = [
   { id: 1, name: "Home", link: "/" },
   { id: 2, name: "Booking-cars", link: "/booking-car" },
   { id: 3, name: "Services", link: "/Services" },
-  { id: 3, name: "Feedback", link: "/Testimonial" },
+  { id: 4, name: "Feedback", link: "/Testimonial" },
 ];
 
 const Navbar = ({ theme, setTheme }) => {
@@ -104,7 +104,8 @@ const Navbar = ({ theme, setTheme }) => {
           </div>
         </div>
       </div>
-      <ResponsiveMenu showMenu={showMenu} />
+      {/* Passing Navlinks as a prop */}
+      <ResponsiveMenu showMenu={showMenu} Navlinks={Navlinks} />
     </div>
   );
 };

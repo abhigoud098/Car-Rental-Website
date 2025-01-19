@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import whiteCar from "../../assets/car1.png";
 import car2 from "../../assets/car2.png";
 import car3 from "../../assets/car5.png";
 import car6 from "../../assets/car6.png";
 import car7 from "../../assets/car1.png";
 import car8 from "../../assets/car2.png";
+import CarCard from "./CarCard ";
+
+// Utility functions for localStorage
+const getBookingsFromLocalStorage = () =>
+  JSON.parse(localStorage.getItem("bookings")) || [];
+const saveBookingsToLocalStorage = (bookings) =>
+  localStorage.setItem("bookings", JSON.stringify(bookings));
 
 const carList = [
   {
@@ -54,7 +61,10 @@ const CarList = () => {
   const [isBooking, setIsBooking] = useState(false);
   const [isReturning, setIsReturning] = useState(false);
   const [notification, setNotification] = useState({ message: "", type: "" });
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState(getBookingsFromLocalStorage());
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("user") !== null
+  ); // Check if user is logged in
 
   const showDetails = (car) => {
     setSelectedCar(car);
@@ -68,7 +78,7 @@ const CarList = () => {
     setUserName("");
     setContactNumber("");
     setDays(1);
-    setOrderId(""); // Clear order ID on close
+    setOrderId("");
   };
 
   const handleBookNow = () => {
@@ -83,10 +93,7 @@ const CarList = () => {
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
-
-    // Generate a unique Order ID
-    const newOrderId = Math.random().toString(36).substr(2, 9);
-
+    const newOrderId = Math.random().toString(36).slice(2, 11);
     const newBooking = {
       orderId: newOrderId,
       userName,
@@ -96,20 +103,33 @@ const CarList = () => {
       totalPrice: selectedCar.price * days,
     };
 
-    setBookings((prevBookings) => [...prevBookings, newBooking]);
+    const updatedBookings = [...bookings, newBooking];
+    setBookings(updatedBookings);
+    saveBookingsToLocalStorage(updatedBookings);
 
     setNotification({
-      message: `You have successfully booked ${selectedCar.name} for ${days} day(s). Order ID: ${newOrderId}. Total: ${selectedCar.price * days}.`,
+      message: `You have successfully booked ${
+        selectedCar.name
+      } for ${days} day(s). Order ID: ${newOrderId}. Total: $${
+        selectedCar.price * days
+      }.`,
       type: "success",
     });
+
+    setTimeout(() => {
+      setNotification({ message: "", type: "" });
+    }, 5000);
+
     closeDetails();
   };
 
   const handleReturnSubmit = (e) => {
     e.preventDefault();
-
     const foundBooking = bookings.find(
-      (booking) => booking.orderId === orderId && booking.userName === userName && booking.contactNumber === contactNumber
+      (booking) =>
+        booking.orderId === orderId &&
+        booking.userName === userName &&
+        booking.contactNumber === contactNumber
     );
 
     if (foundBooking) {
@@ -117,59 +137,66 @@ const CarList = () => {
         message: `You have successfully returned ${foundBooking.car.name}. Order ID: ${foundBooking.orderId}.`,
         type: "success",
       });
+
+      setTimeout(() => {
+        setNotification({ message: "", type: "" });
+      }, 5000);
+
       closeDetails();
-      setBookings((prevBookings) => prevBookings.filter(booking => booking.orderId !== foundBooking.orderId)); // Remove the booking after return
+      const updatedBookings = bookings.filter(
+        (booking) => booking.orderId !== foundBooking.orderId
+      );
+      setBookings(updatedBookings);
+      saveBookingsToLocalStorage(updatedBookings);
     } else {
       setNotification({
-        message: "No matching booking found. Please check your details and try again.",
+        message:
+          "No matching booking found. Please check your details and try again.",
         type: "error",
       });
     }
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("user"); // Remove user from localStorage
+    setIsLoggedIn(false); // Update logged-in state
+    setBookings([]); // Clear bookings
+    saveBookingsToLocalStorage([]); // Save empty bookings to localStorage
+    setNotification({ message: "You have been signed out.", type: "success" });
+    setTimeout(() => {
+      setNotification({ message: "", type: "" });
+    }, 5000);
+  };
+
   return (
     <div className="pb-24">
       <div className="container">
-        <h1 data-aos="fade-up" className="text-3xl sm:text-4xl font-semibold font-serif mb-3">
+        <h1 className="text-3xl sm:text-4xl font-semibold font-serif mb-3">
           Cars Prices!
         </h1>
-        <p data-aos="fade-up" data-aos-delay="400" className="text-sm pb-10">
-          Affordable cars are available for everyone, allowing you to book quickly and head to your destination with ease.
+        <p className="text-sm pb-10">
+          Affordable cars are available for everyone, allowing you to book
+          quickly and head to your destination with ease.
         </p>
+
+        {/* Sign-out button */}
+        {isLoggedIn && (
+          <button
+            onClick={handleSignOut}
+            className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-500"
+          >
+            Sign Out
+          </button>
+        )}
 
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16">
             {carList.map((car, index) => (
-              <div
-                key={index}
-                data-aos="fade-up"
-                className="space-y-3 border-2 border-gray-300 hover:border-primary p-3 rounded-xl relative group"
-              >
-                <div className="w-full h-[120px]">
-                  <img
-                    src={car.image}
-                    alt={car.name}
-                    className="w-full h-[120px] object-contain sm:translate-x-8 group-hover:sm:translate-x-16 duration-700"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <h1 className="text-primary font-semibold">{car.name}</h1>
-                  <div className="flex justify-between items-center text-xl font-semibold">
-                    <p>${car.price}/Day</p>
-                    <button
-                      onClick={() => showDetails(car)}
-                      className="py-2 px-4 bg-primary text-white rounded hover:bg-primary/80"
-                    >
-                      Details
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <CarCard key={index} car={car} showDetails={showDetails} />
             ))}
           </div>
         </div>
 
-        {/* Modal for Car Details */}
         {selectedCar && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white dark:bg-gray-800 dark:text-white p-6 rounded-lg shadow-lg max-w-lg w-full">
@@ -181,6 +208,25 @@ const CarList = () => {
               />
               <p>{selectedCar.details}</p>
               <p className="font-semibold mt-4">${selectedCar.price}/Day</p>
+
+              <div className="flex space-x-4 mt-4">
+                {!isBooking && !isReturning && (
+                  <>
+                    <button
+                      onClick={handleBookNow}
+                      className="py-2 px-4 bg-primary text-white rounded hover:bg-primary/80"
+                    >
+                      Book Now
+                    </button>
+                    <button
+                      onClick={handleReturnCar}
+                      className="py-2 px-4 bg-primary text-white rounded hover:bg-primary/80"
+                    >
+                      Return Car
+                    </button>
+                  </>
+                )}
+              </div>
 
               {isBooking && (
                 <form onSubmit={handleBookingSubmit} className="mt-4">
@@ -212,16 +258,17 @@ const CarList = () => {
                   <p>Total Price: ${selectedCar.price * days}</p>
                   <div className="flex justify-end mt-4 space-x-4">
                     <button
-                      type="submit"
-                      className="py-2 px-4 bg-primary text-white rounded hover:bg-primary/80"
-                    >
-                      Submit Booking
-                    </button>
-                    <button
+                      type="button"
                       onClick={closeDetails}
-                      className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-600"
+                      className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-500"
                     >
                       Close
+                    </button>
+                    <button
+                      type="submit"
+                      className="py-2 px-4 bg-green-600 text-white rounded hover:bg-green-500"
+                    >
+                      Confirm Booking
                     </button>
                   </div>
                 </form>
@@ -255,47 +302,22 @@ const CarList = () => {
                   />
                   <div className="flex justify-end mt-4 space-x-4">
                     <button
-                      type="submit"
-                      className="py-2 px-4 bg-secondary bg-yellow-500 text-white rounded hover:bg-secondary/80"
-                    >
-                      Submit Return
-                    </button>
-                    <button
+                      type="button"
                       onClick={closeDetails}
-                      className="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-600"
+                      className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-500"
                     >
                       Close
+                    </button>
+                    <button
+                      type="submit"
+                      className="py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-500"
+                    >
+                      Return Car
                     </button>
                   </div>
                 </form>
               )}
-
-              <div className="flex justify-end mt-4 space-x-4">
-                {!isBooking && !isReturning && (
-                  <>
-                    <button
-                      onClick={handleBookNow}
-                      className="py-2 px-4 bg-yellow-500 text-white rounded hover:bg-yellow-400"
-                    >
-                      Book Now
-                    </button>
-                    <button
-                      onClick={handleReturnCar}
-                      className="py-2 px-4 bg-secondary bg-yellow-500 text-white rounded hover:bg-secondary/80"
-                    >
-                      Return Car
-                    </button>
-                  </>
-                )}
-              </div>
             </div>
-          </div>
-        )}
-
-        {/* Notification for Booking/Return Confirmation */}
-        {notification.message && (
-          <div className={`fixed bottom-4 right-4 p-4 rounded shadow-lg ${notification.type === "success" ? "bg-green-500" : "bg-red-500"} text-white`}>
-            {notification.message}
           </div>
         )}
       </div>

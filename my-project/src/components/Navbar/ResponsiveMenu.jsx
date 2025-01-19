@@ -1,9 +1,7 @@
-import React from "react";
 import PropTypes from "prop-types"; // Import PropTypes
 import { FaUserCircle } from "react-icons/fa";
-import { Navlinks } from "./Navbar";
 
-const ResponsiveMenu = ({ showMenu }) => {
+const ResponsiveMenu = ({ showMenu, Navlinks }) => {
   return (
     <div
       className={`${
@@ -39,9 +37,10 @@ const ResponsiveMenu = ({ showMenu }) => {
   );
 };
 
-// Add PropTypes validation
+// PropTypes validation
 ResponsiveMenu.propTypes = {
-  showMenu: PropTypes.bool.isRequired, // Validate showMenu as a required boolean
+  showMenu: PropTypes.bool.isRequired,
+  Navlinks: PropTypes.array.isRequired, // Ensure Navlinks is passed correctly
 };
 
 export default ResponsiveMenu;
